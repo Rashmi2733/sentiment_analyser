@@ -49,22 +49,30 @@ st.subheader("Enter a sentence to analyze the balance of positive and negative s
 
 user_input = st.text_input("Enter your statement:")
 
-if user_input:
-    sentiment, pos_pct, neg_pct, pos_words, neg_words = analyze_sentiment(user_input)
+# Input box
+user_input = st.text_input("Enter your statement:")
 
-    st.markdown(f"### Sentiment: **{sentiment}**")
-    st.progress(int(pos_pct), text=f"Positive: {pos_pct}%")
-    st.progress(int(neg_pct), text=f"Negative: {neg_pct}%")
+# Button to trigger analysis
+if st.button("Analyze Sentiment"):
+    if user_input.strip() != "":
+        sentiment, pos_pct, neg_pct, pos_words, neg_words = analyze_sentiment(user_input)
 
-    st.write(f"**Positive Percent:** {pos_pct}%")
-    st.write(f"**Negative Percent:** {neg_pct}%")
+        st.markdown(f"### Sentiment: **{sentiment}**")
+        st.progress(int(pos_pct), text=f"Positive: {pos_pct}%")
+        st.progress(int(neg_pct), text=f"Negative: {neg_pct}%")
 
-    st.write(f"**Positive Words:** {pos_words}")
-    st.write(f"**Negative Words:** {neg_words}")
+        st.write(f"**Positive Percent:** {pos_pct}%")
+        st.write(f"**Negative Percent:** {neg_pct}%")
 
-    if pos_pct > neg_pct:
-        st.subheader("The statement is more positively inclined.")
-    elif pos_pct < neg_pct:
-        st.subheader("The statement is more negatively inclined.")
+        st.write(f"**Positive Words:** {pos_words}")
+        st.write(f"**Negative Words:** {neg_words}")
+
+        if pos_pct > neg_pct:
+            st.subheader("The statement is more positively inclined.")
+        elif pos_pct < neg_pct:
+            st.subheader("The statement is more negatively inclined.")
+        else:
+            st.subheader("The statement is neutral.")
     else:
-        st.subheader("The statement is neutral.")
+        st.warning("Please enter a statement before clicking the button.")
+
