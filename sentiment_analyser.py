@@ -58,7 +58,7 @@ if st.button("Analyze Sentiment", key="analyze_button"):
     if user_input.strip():
         sentiment, pos_pct, neg_pct, pos_words, neg_words = analyze_sentiment(user_input)
 
-        st.markdown(f"### Sentiment: **{sentiment}**")
+        # st.markdown(f"### Sentiment: **{sentiment}**")
         st.progress(int(pos_pct), text=f":green[Positive: {pos_pct}%]")
         st.progress(int(neg_pct), text=f":red[Negative: {neg_pct}%]")
 
