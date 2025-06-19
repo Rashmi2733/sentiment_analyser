@@ -47,14 +47,15 @@ def analyze_sentiment(text):
 st.title("Simple Sentiment Analyzer")
 st.subheader("Enter a sentence to analyze the balance of positive and negative sentiment.")
 
-user_input = st.text_input("Enter your statement:")
+# user_input = st.text_input("Enter your statement:")
 
-# Input box
-user_input = st.text_input("Enter your statement:")
+# # Input box
+# user_input = st.text_input("Enter your statement:")
 
-# Button to trigger analysis
-if st.button("Analyze Sentiment"):
-    if user_input.strip() != "":
+user_input = st.text_input("Enter your statement:", key="input_text")
+
+if st.button("Analyze Sentiment", key="analyze_button"):
+    if user_input.strip():
         sentiment, pos_pct, neg_pct, pos_words, neg_words = analyze_sentiment(user_input)
 
         st.markdown(f"### Sentiment: **{sentiment}**")
