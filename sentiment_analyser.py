@@ -59,19 +59,19 @@ if st.button("Analyze Sentiment", key="analyze_button"):
         sentiment, pos_pct, neg_pct, pos_words, neg_words = analyze_sentiment(user_input)
 
         st.markdown(f"### Sentiment: **{sentiment}**")
-        st.progress(int(pos_pct), text=f"Positive: {pos_pct}%")
-        st.progress(int(neg_pct), text=f"Negative: {neg_pct}%")
+        st.progress(int(pos_pct), text=f":green[Positive: {pos_pct}%]")
+        st.progress(int(neg_pct), text=f":red[Negative: {neg_pct}%]")
 
-        st.write(f"**Positive Percent:** {pos_pct}%")
-        st.write(f"**Negative Percent:** {neg_pct}%")
+        # st.write(f"**Positive Percent:** {pos_pct}%")
+        # st.write(f"**Negative Percent:** {neg_pct}%")
 
         st.write(f"**Positive Words:** {pos_words}")
         st.write(f"**Negative Words:** {neg_words}")
 
         if pos_pct > neg_pct:
-            st.subheader("The statement is more positively inclined.")
+            st.subheader(":green[The statement is more positively inclined.]")
         elif pos_pct < neg_pct:
-            st.subheader("The statement is more negatively inclined.")
+            st.subheader(":red[The statement is more negatively inclined.]")
         else:
             st.subheader("The statement is neutral.")
     else:
