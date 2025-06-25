@@ -4,4 +4,4 @@ numpy
 pandas
 streamlit
 nltk
-GoogleSearch
+serpapi
