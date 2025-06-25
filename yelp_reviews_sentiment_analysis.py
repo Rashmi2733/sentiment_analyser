@@ -1,18 +1,3 @@
-'''
-It's been a few years since heard of 'sentiment analysis' but having built a small version myself in the past few days, I see and understand it more now. 
-
-
-Used: Ml model SVM
-
-TfidfVectorizer
-
-serpAPI to get yelp reviews 
-
-
-This doesnt really solve much currently but i see the potential -- looking up a keyword on a specific social media platform and seeing if it is positively or negatively being talked about 
-
-'''
-
 #getting all the necessary libraries and functions
 from serpapi import GoogleSearch
 import pickle
@@ -173,7 +158,7 @@ if "final_results" in st.session_state and st.session_state["final_results"]:
         # #Wrapping the text in the dataframe 
         # styled_df = df.style.set_table_styles([{'selector': 'td', 'props': [('white-space', 'normal')]}]).hide(axis='index')
 
-        # Function to color full row based on Sentiment
+        # Creating a function that colors the rows of the table based on the Sentiment
         def row_text_color(row):
             sentiment = row["Sentiment"]
             if sentiment == "positive":
@@ -185,12 +170,12 @@ if "final_results" in st.session_state and st.session_state["final_results"]:
             else:
                 return [""] * len(row)
 
-        # Apply styling
+        # Apply styling to the table based on sentiment
         styled_df = (
             df.style
-            .apply(row_text_color, axis=1)  # Apply to full row based on Sentiment
+            .apply(row_text_color, axis=1) 
             .set_table_styles([{'selector': 'td', 'props': [('white-space', 'normal')]}])
-            .hide(axis='index')  # Hide index column
+            .hide(axis='index')  
         )
 
         st.write(f"### Top {num_reviews} reviews")
