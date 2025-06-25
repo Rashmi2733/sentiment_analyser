@@ -30,6 +30,9 @@ SERP_API = os.getenv("SERP_API")
 ##Setting the Streamlit UI to be wide since the default is narrower
 st.set_page_config(layout="wide")
 
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
 ##Getting the list of businesses (and their information) from business name and location from yelp (using Serp API)
 def search_businesses(business_name: str, location: str):
     params = {
@@ -58,8 +61,11 @@ def get_reviews(place_id: str, num_reviews: int = 10):
 
 #Loading the required models for svm and the vectorizer as well
 def load_models():
-    svm_model = pickle.load(open('svm_sentiment_analyser.pkl', 'rb'))
-    vect = pickle.load(open('vectorizer.pkl', 'rb'))
+    svm_path = os.path.join(current_dir, 'svm_sentiment_analyser.pkl')
+    vec_path = os.path.join(current_dir, 'vectorizer.pkl')
+    svm_model = pickle.load(open(svm_path, 'rb'))
+    vect = pickle.load(open(vec_path, 'rb'))
+    
     return svm_model, vect
 
 svm_model, vectorizer = load_models()
@@ -67,6 +73,8 @@ svm_model, vectorizer = load_models()
 
 ##Streamlit code
 
+#Adding a self made yelp logo 
+st.sidebar.image('yelp.jpeg', width = 60)
 ##Showing the heading in the sidebar
 st.sidebar.header("Search Restaurant")
 
