@@ -5,3 +5,4 @@ pandas
 streamlit
 nltk
 git+https://github.com/serpapi/google-search-results-python
+python-dotenv
