@@ -24,8 +24,9 @@ import os
 
 ##Getting the serp api key from .env file
 load_dotenv() 
-SERP_API = os.getenv("SERP_API")
+# SERP_API = os.getenv("SERP_API")
 
+SERP_API = st.secrets["SERP_API"]
 
 ##Setting the Streamlit UI to be wide since the default is narrower
 st.set_page_config(layout="wide")
@@ -65,7 +66,7 @@ def load_models():
     vec_path = os.path.join(current_dir, 'vectorizer.pkl')
     svm_model = pickle.load(open(svm_path, 'rb'))
     vect = pickle.load(open(vec_path, 'rb'))
-    
+
     return svm_model, vect
 
 svm_model, vectorizer = load_models()
