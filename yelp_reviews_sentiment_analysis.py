@@ -79,6 +79,9 @@ st.sidebar.image('yelp.jpeg', width = 60)
 ##Showing the heading in the sidebar
 st.sidebar.header("Search Restaurant")
 
+##Adding a title
+st.write(f"## Sentiment Analyser")
+
 ##Letting the user enter the business name and location
 business_name = st.sidebar.text_input("Name (e.g. Chipotle)", "")
 location = st.sidebar.text_input("Location (City, State Code)", "")
@@ -167,8 +170,26 @@ if "final_results" in st.session_state and st.session_state["final_results"]:
         st.metric("NEUTRAL REVIEWS", counts.get("neutral", 0))
         
 
-        #Wrapping the text in the dataframe 
-        styled_df = df.style.set_table_styles([{'selector': 'td', 'props': [('white-space', 'normal')]}]).hide(axis='index')
+        # #Wrapping the text in the dataframe 
+        # styled_df = df.style.set_table_styles([{'selector': 'td', 'props': [('white-space', 'normal')]}]).hide(axis='index')
+
+        def color_sentiment(val):
+            if val == "positive":
+                return "color: green;"
+            elif val == "negative":
+                return "color: red;"
+            elif val == "neutral":
+                return "color: gray;"
+            else:
+                return ""
+
+        # Apply styling to the dataframe
+        styled_df = (
+            df.style
+            .applymap(color_sentiment, subset=["Sentiment"])  # Apply only to Sentiment column
+            .set_table_styles([{'selector': 'td', 'props': [('white-space', 'normal')]}])
+            .hide(axis='index')
+)
 
         st.write(f"### Top {num_reviews} reviews")
 
