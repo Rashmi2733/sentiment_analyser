@@ -174,23 +174,23 @@ if "final_results" in st.session_state and st.session_state["final_results"]:
         # styled_df = df.style.set_table_styles([{'selector': 'td', 'props': [('white-space', 'normal')]}]).hide(axis='index')
 
         # Function to color full row based on Sentiment
-        def row_style(row):
+        def row_text_color(row):
             sentiment = row["Sentiment"]
             if sentiment == "positive":
-                return ["background-color: #d4edda; color: green;"] * len(row)
+                return ["color: green;"] * len(row)
             elif sentiment == "negative":
-                return ["background-color: #f8d7da; color: red;"] * len(row)
+                return ["color: red;"] * len(row)
             elif sentiment == "neutral":
-                return ["background-color: #fefefe; color: gray;"] * len(row)
+                return ["color: gray;"] * len(row)
             else:
                 return [""] * len(row)
 
-        # Apply styling to the whole row
+        # Apply styling
         styled_df = (
             df.style
-            .apply(row_style, axis=1)
+            .apply(row_text_color, axis=1)  # Apply to full row based on Sentiment
             .set_table_styles([{'selector': 'td', 'props': [('white-space', 'normal')]}])
-            .hide(axis='index')
+            .hide(axis='index')  # Hide index column
         )
 
         st.write(f"### Top {num_reviews} reviews")
