@@ -4,4 +4,4 @@ numpy
 pandas
 streamlit
 nltk
-serpapi
+git+https://github.com/serpapi/google-search-results-python
