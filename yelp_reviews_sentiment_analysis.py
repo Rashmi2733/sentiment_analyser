@@ -70,7 +70,7 @@ st.write(f"## Sentiment Analyser")
 ##Letting the user enter the business name and location
 business_name = st.sidebar.text_input("Name (e.g. Chipotle)", "")
 location = st.sidebar.text_input("Location (City, State Code)", "")
-num_reviews = st.sidebar.number_input("Input number of reviews to diaply (upto 20)", min_value = 1, max_value = 20, step = 1)
+num_reviews = st.sidebar.number_input("Input number of reviews to display (upto 20)", min_value = 1, max_value = 20, step = 1)
 
 #search button when clicked triggers a response
 search_button = st.sidebar.button("Find locations")
@@ -84,7 +84,6 @@ if search_button and business_name and location:
     for r in results:
         if 'place_ids' in r:
             final_results.append(r)
-    # results = [r for r in results if "place_ids" in r]  # filter valid ones
 
     #Storing the current session state to be accessed later
     st.session_state["final_results"] = final_results
@@ -98,7 +97,6 @@ if "final_results" in st.session_state and st.session_state["final_results"]:
     for r in display_results:
         location_options.append(f"{r['title']} — {r.get('neighborhoods', [])}")
         
-    # [f"{r['title']} — {r.get('neighborhoods', [])}" for r in display_results]
     
     #Getting a dropdown from the options above and getting the index for the selected option
     selected_id = st.sidebar.selectbox("Choose a location:", range(len(location_options)),
@@ -116,13 +114,12 @@ if "final_results" in st.session_state and st.session_state["final_results"]:
         for rev in reviews:
             if rev.get('rating') is not None:
                 ratings.append(rev.get('rating'))
-        # ratings = [rev.get('rating') for rev in reviews if rev.get('rating') is not None]
+
 
     ##Getting all reviews 
     rev_texts = []
     for r in reviews:
         rev_texts.append(r.get("comment", {}).get("text") or r.get("text", ""))
-    # texts = [r.get("comment", {}).get("text") or r.get("text", "") for r in reviews]
 
 
     st.write(f"## Yelp Reviews for {location_options[selected_id]}")
@@ -154,9 +151,7 @@ if "final_results" in st.session_state and st.session_state["final_results"]:
         st.metric(":red[NEGATIVE REVIEWS]", counts.get("negative", 0))
         st.metric("NEUTRAL REVIEWS", counts.get("neutral", 0))
         
-
-        # #Wrapping the text in the dataframe 
-        # styled_df = df.style.set_table_styles([{'selector': 'td', 'props': [('white-space', 'normal')]}]).hide(axis='index')
+ 
 
         # Creating a function that colors the rows of the table based on the Sentiment
         def row_text_color(row):
@@ -170,13 +165,8 @@ if "final_results" in st.session_state and st.session_state["final_results"]:
             else:
                 return [""] * len(row)
 
-        # Apply styling to the table based on sentiment
-        styled_df = (
-            df.style
-            .apply(row_text_color, axis=1) 
-            .set_table_styles([{'selector': 'td', 'props': [('white-space', 'normal')]}])
-            .hide(axis='index')  
-        )
+        # Apply styling to the table based on sentiment and wrapping the text in the dataframe 
+        styled_df = (df.style.apply(row_text_color, axis=1).set_table_styles([{'selector': 'td', 'props': [('white-space', 'normal')]}]).hide(axis='index'))
 
         st.write(f"### Top {num_reviews} reviews")
 
