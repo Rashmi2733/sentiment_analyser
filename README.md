@@ -7,6 +7,6 @@ Once a location is chosen, we get the top reviews along with the sentiment for e
 
 The model that gives us the sentiment is an SVM model trained on tweets. 
 
-Streamlit UI Image looks as shown:
+Streamlit UI:
 
 <img src="UI_SS.png" width="600"/>
